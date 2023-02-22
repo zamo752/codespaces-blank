@@ -1,0 +1,36 @@
+ public class recursion {
+
+  // Function to reverse a string recursively
+  public static String reverseString(String str) {
+    if (str.length() <= 1) {
+      return str;
+    }
+    return reverseString(str.substring(1)) + str.charAt(0);
+  }
+
+  // Function to print the first n Fibonacci numbers recursively
+  public static void printFibonacci(int n) {
+    for (int i = 0; i < n; i++) {
+      System.out.print(fibonacci(i) + " ");
+    }
+  }
+
+  // Helper function to calculate the nth Fibonacci number
+  public static int fibonacci(int n) {
+    if (n == 0 || n == 1) {
+      return n;
+    }
+    return fibonacci(n - 1) + fibonacci(n - 2);
+  }
+
+  // Testing the functions
+  public static void main(String[] args) {
+    String str = "Java is Awsome!";
+    System.out.println("Original String: " + str);
+    System.out.println("Reversed String: " + reverseString(str));
+
+    int n = 10;
+    System.out.println("\nFirst " + n + " Fibonacci numbers:");
+    printFibonacci(n);
+  }
+}
