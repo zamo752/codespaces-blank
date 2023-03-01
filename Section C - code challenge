@@ -1,0 +1,52 @@
+public class Main {
+  public static String isbn13(String isbn) {
+      int len = isbn.length();
+      if (len != 10 && len != 13) {
+          return "Invalid";
+      }
+      int sum = 0;
+      int multiplier = 1;
+      for (int i = 0; i < len - 1; i++) {
+          char c = isbn.charAt(i);
+          if (c >= '0' && c <= '9') {
+              sum += (c - '0') * multiplier;
+              multiplier = 4 - multiplier;
+          } else {
+              return "Invalid";
+          }
+      }
+      char last = isbn.charAt(len - 1);
+      if (last == 'X') {
+          sum += 10;
+      } else if (last >= '0' && last <= '9') {
+          sum += last - '0';
+      } else {
+          return "Invalid";
+      }
+      if (len == 10) {
+          if (sum % 11 != 0) {
+              return "Invalid";
+          }
+          return "978" + isbn.substring(0, 9) + getCheckDigit(isbn);
+      } else {
+          if (sum % 10 != 0) {
+              return "Invalid";
+          }
+          return "Valid";
+      }
+  }
+
+  private static int getCheckDigit(String isbn) {
+      int sum = 0;
+      for (int i = 0; i < 9; i++) {
+          sum += (isbn.charAt(i) - '0') * (10 - i);
+      }
+      int checkDigit = (11 - sum % 11) % 11;
+      return checkDigit == 10 ? 'X' : checkDigit + '0';
+  }
+  public static void main(String[] args) {
+    System.out.println(isbn13("9780316066525")); // "Valid"
+    System.out.println(isbn13("0330301824")); // "Invalid"
+    System.out.println(isbn13("0316066524")); // "9780316066525"
+  }
+}
