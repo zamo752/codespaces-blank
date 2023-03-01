@@ -1,0 +1,47 @@
+public class recursion {
+
+    public static void main(String[] args) {
+ 
+        // Saves the string that would be reversed
+        String myStr = "emosewA si avaJ";
+ 
+        // Call the reverse_string method and print the result
+        String reversed = reverse_string(myStr);
+        System.out.println("The reversed string is: " + reversed);
+ 
+        // Call the fibonacci method with the desired number of elements to print
+        fibonacci(10);
+    }
+ 
+    // Recursive function to reverse a string
+    public static String reverse_string(String myStr) {
+        if (myStr.isEmpty()) {
+            return myStr;
+        }
+        // Calling the function recursively
+        return reverse_string(myStr.substring(1)) + myStr.charAt(0);
+    }
+
+    // Recursive function to print the first n Fibonacci numbers
+    public static void fibonacci(int n) {
+        int[] fibonacciNumbers = new int[n];
+        fibonacciHelper(fibonacciNumbers, 0);
+        System.out.print("Fibonacci Series of " + n + " numbers:");
+        for (int i = 0; i < n; i++) {
+            System.out.print(" " + fibonacciNumbers[i]);
+        }
+    }
+
+    private static void fibonacciHelper(int[] fibonacciNumbers, int i) {
+        if (i == 0) {
+            fibonacciNumbers[0] = 0;
+        } else if (i == 1) {
+            fibonacciNumbers[1] = 1;
+        } else {
+            fibonacciNumbers[i] = fibonacciNumbers[i - 1] + fibonacciNumbers[i - 2];
+        }
+        if (i < fibonacciNumbers.length - 1) {
+            fibonacciHelper(fibonacciNumbers, i + 1);
+        }
+    }
+}
